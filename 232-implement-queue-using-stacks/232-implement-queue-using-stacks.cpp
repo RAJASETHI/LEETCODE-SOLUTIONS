@@ -1,79 +1,37 @@
 class MyQueue {
 public:
-    stack<int>st1,st2;
+    stack<int>st;
     MyQueue() {
-        while(st1.size())st1.pop();
-        while(st2.size())st2.pop();
-    
+        while(st.size())st.pop();
     }
     
     void push(int x) {
-        if(!st1.size())
+        if(!st.size())
         {
-            while(st2.size())
-            {
-                st1.push(st2.top());
-                st2.pop();
-            }
-            
-            st1.push(x);
-            while(st1.size())
-            {
-                st2.push(st1.top());
-                st1.pop();
-            }
+            st.push(x);
+            return;
         }
-        else
-        {
-            
-            while(st1.size())
-            {
-                st2.push(st1.top());
-                st1.pop();
-            }
-            
-            st2.push(x);
-            while(st2.size())
-            {
-                st1.push(st2.top());
-                st2.pop();
-            }
-        }
+        int data=st.top();
+        st.pop();
+        push(x);
+        st.push(data);
     }
     
     int pop() {
-        int val=-1;
-        if(st1.size())
-        {
-            val=st1.top();
-            st1.pop();
-        }
-        else if(st2.size())
-        {
-            val=st2.top();
-            st2.pop();
-        }
+        int val=st.top();
+        st.pop();
         return val;
     }
     
     int peek() {
         
-        int val=-1;
-        if(st1.size())
-        {
-            val=st1.top();
-            // st1.pop();
-        }
-        else if(st2.size())
-        {
-            val=st2.top();
-            // st2.pop();
-        }
+        int val=st.top();
+        // st.pop();
         return val;
     }
     
     bool empty() {
-        return (!st1.size() && !st2.size());
+        return (!st.size());
     }
 };
 
