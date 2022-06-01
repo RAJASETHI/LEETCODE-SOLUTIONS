@@ -15,9 +15,8 @@ public:
     {
         if(!root)return 0;
         int r=f(root->right,sm);
-        int tmp=sm+root->val;
         sm+=root->val;
-        root->val=tmp;
+        root->val=sm;
         int l=f(root->left,sm);
         return l+root->val;
     }
