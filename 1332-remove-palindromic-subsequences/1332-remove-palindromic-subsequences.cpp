@@ -1,19 +1,23 @@
 class Solution {
 public:
-    int removePalindromeSub(string s) {
-        int l=0,n=s.size(),r=n-1,flag=1;
+    bool isPalindrome(string s)
+    {
+        int l=0,n=s.size(),r=n-1;
         while(l<r)
         {
             if(s[l]!=s[r])
             {
-                flag=0;
-                break;
+                return false;
             }
             else
             {
                 l++,r--;
             }
         }
+        return true;
+    }
+    int removePalindromeSub(string s) {
+        int flag=isPalindrome(s);
         if(flag)return 1;
         return 2;
     }
