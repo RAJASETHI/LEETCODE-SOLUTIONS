@@ -10,23 +10,19 @@
  * };
  */
 class Solution {
-public:
-    int f(TreeNode* root,bool isPrev,unordered_map<TreeNode*,vector<int>>&dp)
-    {
-        if(!root)return 0;
-        int mx=0;
-        if(dp.find(root)==dp.end())dp[root]={-1,-1};
-        if(dp[root][isPrev]!=-1)return dp[root][isPrev];
-        if(isPrev==0)
-        {
-            mx=max(mx,root->val+f(root->left,1,dp)+f(root->right,1,dp));
-        }
-        mx=max(mx,f(root->right,0,dp)+f(root->left,0,dp));
-        return dp[root][isPrev]=mx;
+private:
+    int rob(TreeNode* root, int &rob_max, int &not_rob_max) {
+        if (!root) return 0;
+        int left_rob_max = 0, left_not_rob_max = 0, right_rob_max = 0, right_not_rob_max = 0;
+        int left_max = rob(root->left, left_rob_max, left_not_rob_max);
+        int right_max = rob(root->right, right_rob_max, right_not_rob_max);
+        rob_max = root->val + left_not_rob_max + right_not_rob_max;
+        not_rob_max = left_max + right_max;
+        return max(rob_max, not_rob_max);
     }
+public:
     int rob(TreeNode* root) {
-        unordered_map<TreeNode*,vector<int>>dp;
-        
-        return f(root,0,dp);
+        int rob_max = 0, not_rob_max = 0;
+        return rob(root, rob_max, not_rob_max);
     }
 };
