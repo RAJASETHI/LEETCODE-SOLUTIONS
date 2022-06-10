@@ -19,13 +19,9 @@ public:
         if(dp[root][isPrev]!=-1)return dp[root][isPrev];
         if(isPrev==0)
         {
-            
             mx=max(mx,root->val+f(root->left,1,dp)+f(root->right,1,dp));
         }
-            int val=0;
-            val+=f(root->left,0,dp);
-            val+=f(root->right,0,dp);
-            mx=max(mx,val);
+        mx=max(mx,f(root->right,0,dp)+f(root->left,0,dp));
         return dp[root][isPrev]=mx;
     }
     int rob(TreeNode* root) {
