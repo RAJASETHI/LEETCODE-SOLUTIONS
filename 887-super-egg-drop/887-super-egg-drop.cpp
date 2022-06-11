@@ -1,7 +1,7 @@
 class Solution {
 public:
     int superEggDrop(int k, int n) {
-        vector<vector<int>>dp(k+2,vector<int>(n+2,0));
+        vector<vector<int>>dp(k+1,vector<int>(n+1,0));
         for(int i=0;i<=k;i++)
         {
             for(int j=0;j<=n;j++)
