@@ -1,15 +1,16 @@
 class Solution {
 public:
     bool checkPossibility(vector<int>& nums) {
-        int n=nums.size();
-        vector<int>dp(n+1,INT_MAX);
-        dp[0]=INT_MIN;
-        for(auto i:nums)
+        int n=nums.size(),cnt=0;
+        for(int i=1;i<n;i++)
         {
-            int idx=upper_bound(begin(dp),end(dp),i)-dp.begin();
-            dp[idx]=min(dp[idx],i);
+            if(nums[i-1]>nums[i])
+            {
+                cnt++;
+                if(i-2<0 || nums[i-2]<=nums[i])nums[i-1]=nums[i];
+                else nums[i]=nums[i-1];
+            }
         }
-        if(dp[n-1]!=INT_MAX)return true;
-        return false;
+        return cnt<=1;
     }
 };
