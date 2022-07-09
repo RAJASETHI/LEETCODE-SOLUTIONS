@@ -1,22 +1,34 @@
 class Solution {
 public:
+    #define resp(i,a,b) for(int i=a;i<b;i++)
     int jump(vector<int>& nums) {
         int n=nums.size();
-        vector<int>dp(n+1,1e9);
+        if(n<=2)return n-1;
+        int dp[n];
+        resp(k,0,n)dp[k]=-1;
         dp[n-1]=0;
-        dp[n]=0;
-        for(int i=n-2;i>=0;i--)
+        int i=n-2;
+        while(i>=0)
         {
-            if(nums[i]+i>=n-1)
+            if(nums[i]+i>=n-1)dp[i]=1;
+            else if(nums[i])
             {
-                    dp[i]=1;
-                    continue;
-            }
-            for(int j=i+1;j<=min(n-1,nums[i]+i);j++)
-            {
-                dp[i]=min(dp[i],dp[j]+1);
+                int m=n+1;
+                int pos=-1;
+                for(int j=i+1;j<=i+nums[i];j++)
+                {
+                    if(dp[j]<m && dp[j]!=-1)
+                    {
+                        m=dp[j];
+                        pos=j;
+                    }
+                    // cout<<m<<" ";
+                }
+                // cout<<"\n";
+                dp[i]=m+1;
             }
             // cout<<dp[i]<<" ";
+            i--;
         }
         return dp[0];
     }
