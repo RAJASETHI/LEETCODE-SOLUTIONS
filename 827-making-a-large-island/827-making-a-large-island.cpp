@@ -10,9 +10,8 @@ public:
         for(auto i:dd)
         {
             int r=i[0]+pos[0],c=i[1]+pos[1];
-            if( r>=0 && c>=0 && r<n && c<n)
+            if( r>=0 && c>=0 && r<n && c<n && vis[r][c]==0 && grid[r][c]==1)
             {
-                if(vis[r][c]==0 && grid[r][c]==1)
                 cnt+=dfs({r,c},num,vis,grid);
             }
         }
