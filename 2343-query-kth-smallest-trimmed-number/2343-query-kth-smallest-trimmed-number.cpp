@@ -20,13 +20,19 @@ public:
             }
             
         }
-        // for(auto &i:mp)
-        // {
-        //     sort(i.second.begin(),i.second.end(),cmp);
-        // }
+        for(auto &i:mp)
+        {
+            sort(i.second.begin(),i.second.end(),cmp);
+        }
         for(auto i:queries)
         {
-            sort(mp[i[1]].begin(),mp[i[1]].end(),cmp);
+            
+            // while(q.size()>k)
+            // {
+            //     cout<<q.top().first<<" "<<q.top().second<<"\n";
+            //     q.pop();
+            // }
+            // cout<<"\n";
             res.push_back(mp[i[1]][i[0]-1].second);
         }
         return res;
