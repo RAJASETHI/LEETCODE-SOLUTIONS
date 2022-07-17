@@ -1,25 +1,44 @@
 class BIT{
-    vector<int> bit;
-public:
-    BIT(int n) : bit(n+1) { }
-    void update(int i, int val) {
-        for(;i <= size(bit); i += i & -i) bit[i] += val;
-    }
-    int query(int i) {  // returns number of elements in [0...i]
-        int res = 0;
-        for(;i > 0; i -= i & -i) res += bit[i];
-        return res;
-    }
+    private:
+        vector<int>bit;
+    public:
+        BIT(int n) : bit(n+1) { }
+        void update(int idx,int val)
+        {
+            while(idx<bit.size())
+            {
+                bit[idx]+=val;
+                idx+=idx&(-idx);
+            }
+        }
+        int query(int idx)
+        {
+            int sm=0;
+            while(idx>0)
+            {
+                sm+=bit[idx];
+                idx-=idx&(-idx);
+            }
+            return sm;
+        }
 };
 class Solution {
 public:
     vector<int> countSmaller(vector<int>& nums) {
-        const int MAX = 1e4+1;   // max range
-        for_each(begin(nums), end(nums), [](int& n){n += MAX;});    // converting range from [-10^4,10^4] to [0,2*10^4]
-        BIT T(2*MAX);
-        for(int i = size(nums)-1; ~i; i--) 
-            T.update(nums[i], 1),
-            nums[i] = T.query(nums[i] - 1);
-        return nums;
+        vector<int>res;
+        int n=nums.size();
+        int mx=1e4+1;
+        for(int i=0;i<nums.size();i++)
+        {
+            nums[i]+=mx;
+        }
+        BIT t(2*mx);
+        for(int i=n-1;i>=0;i--)
+        {
+            t.update(nums[i],1);
+            res.push_back(t.query(nums[i]-1));
+        }
+        reverse(res.begin(),res.end());
+        return res;
     }
 };
