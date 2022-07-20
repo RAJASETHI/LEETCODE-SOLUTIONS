@@ -1,30 +1,29 @@
 class Solution {
 public:
     int numMatchingSubseq(string s, vector<string>& words) {
-        deque<deque<string>>dq(26);
-        for(auto w:words)
+        vector<vector<int>>idx(26);
+        for(int i=0;i<s.size();i++)
         {
-            dq[w[0]-'a'].push_back(w);
+            idx[s[i]-'a'].push_back(i);
         }
         int ans=0;
-        for(auto c:s)
+        for(auto w:words)
         {
-            int n=dq[c-'a'].size();
-            for(int i=0;i<n;i++)
+            int x=-1,flag=1;
+            for(auto i:w)
             {
-                string t=dq[c-'a'].front();
-                dq[c-'a'].pop_front();
-                if(t.size()>1)
+                auto itr=upper_bound(idx[i-'a'].begin(),idx[i-'a'].end(),x);
+                if(itr==idx[i-'a'].end())
                 {
-                    
-                    t=t.substr(1);
-                    dq[t[0]-'a'].push_back(t);
+                    flag=0;
+                    break;
                 }
                 else
                 {
-                  ans++;  
+                    x=*itr;
                 }
             }
+            ans+=flag;
         }
         return ans;
     }
