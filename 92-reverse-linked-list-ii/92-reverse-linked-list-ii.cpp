@@ -26,7 +26,7 @@ public:
         return prev;
     }
     ListNode* reverseBetween(ListNode* head, int l, int r) {
-        if(l==1 || r==l)return f(head,r-l+1);
+        if(l==1)return f(head,r-l+1);
         int cnt=1;
         ListNode* t=head;
         while(cnt+1<l)
