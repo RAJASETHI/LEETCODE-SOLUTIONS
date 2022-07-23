@@ -1,9 +1,32 @@
+// class BIT{
+//     private:
+//     vector<int>bits;
+//     public:
+//     BIT(int n):bits(n){}
+//     void update(int num)
+//     {
+//         int val=1;
+//         for(int i=num;i<bits.size();i+=(i&(-i)))
+//         {
+//             bits[i]+=val;
+//         }
+//     }
+//     int query(int num)
+//     {
+//         int sm=0;
+//         for(int i=num;i>0;i-=(i&(-i)))
+//         {
+//             sm+=bits[i];
+//         }
+//         return sm;
+//     }
+// };
 class BIT{
     private:
         vector<int>bit;
     public:
         BIT(int n) : bit(n+1) { }
-        void update(int idx,int val)
+        void update(int idx,int val=1)
         {
             while(idx<bit.size())
             {
@@ -25,20 +48,17 @@ class BIT{
 class Solution {
 public:
     vector<int> countSmaller(vector<int>& nums) {
-        vector<int>res;
         int n=nums.size();
         int mx=1e4+1;
-        for(int i=0;i<nums.size();i++)
-        {
-            nums[i]+=mx;
-        }
-        BIT t(2*mx);
+        BIT obj(2*mx);
+        for(int i=0;i<n;i++)nums[i]+=mx;
+        vector<int>res;
         for(int i=n-1;i>=0;i--)
         {
-            t.update(nums[i],1);
-            res.push_back(t.query(nums[i]-1));
+            res.push_back(obj.query(nums[i]-1));
+            obj.update(nums[i]);
         }
-        reverse(res.begin(),res.end());
+        reverse(begin(res),end(res));
         return res;
     }
 };
