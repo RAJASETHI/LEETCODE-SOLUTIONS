@@ -19,14 +19,10 @@ public:
             TreeNode* tmp=root->right;
             root->right=root->left;
             root->left=NULL;
-            TreeNode* t=root->right;
-            while(t->right)
-            {
-                t=t->right;
-            }
+            TreeNode* t=root;
+            while(t->right)t=t->right;
             t->right=tmp;
         }
-        
-            flatten(root->right);
+        flatten(root->right);
     }
 };
