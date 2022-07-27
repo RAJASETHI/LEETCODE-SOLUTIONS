@@ -21,16 +21,16 @@ public:
     string stoneGameIII(vector<int>& stone) {
         string res="Tie";
         int n=stone.size();
-        vector<int>dp(n+1,0);
+        vector<int>dp(3+1,0);
         for(int idx=n-1;idx>=0;idx--)
         {
             int sm=0,mn=INT_MIN;
             for(int i=idx;i<min(idx+3,(int)stone.size());i++)
             {
                 sm+=stone[i];
-                mn=max(mn,sm-dp[i+1]);
+                mn=max(mn,sm-dp[(i+1)%4]);
             }
-            dp[idx]=mn;
+            dp[idx%4]=mn;
         }
         int val=dp[0];
         if(val>0)res="Alice";
