@@ -13,6 +13,7 @@ public:
             nums[i]+=cookies[idx];
             f(idx+1,nums,cookies);
             nums[i]-=cookies[idx];
+            if(nums[i]==0)break;
         }
         
     }
