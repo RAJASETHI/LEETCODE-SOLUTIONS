@@ -2,15 +2,11 @@ class MyQueue {
 public:
     stack<int>st;
     MyQueue() {
-        while(st.size())st.pop();
+        
     }
     
     void push(int x) {
-        if(!st.size())
-        {
-            st.push(x);
-            return;
-        }
+        if(!st.size()){st.push(x);return;}
         int data=st.top();
         st.pop();
         push(x);
@@ -18,20 +14,18 @@ public:
     }
     
     int pop() {
-        int val=st.top();
+        int data=st.top();
         st.pop();
-        return val;
+        return data;
     }
     
     int peek() {
-        
-        int val=st.top();
-        // st.pop();
-        return val;
+        int data=st.top();
+        return data;
     }
     
     bool empty() {
-        return (!st.size());
+        return (st.size()==0);
     }
 };
 
